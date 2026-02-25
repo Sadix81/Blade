@@ -10,5 +10,7 @@ interface CategoryInterface
 
     public function update($category, $request);
 
+    public function remove_category_image($category);
+
     public function destroy($category);
 }

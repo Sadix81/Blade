@@ -1,5 +1,7 @@
 {
     "Product": true,
     "Category": true,
-    "Master": true
+    "Master": true,
+    "Auth": true,
+    "Otp": true
 }

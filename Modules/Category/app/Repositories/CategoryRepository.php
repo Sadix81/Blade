@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Repositories;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Category\Interfaces\CategoryInterface;
 use Modules\Category\Models\Category;
 
@@ -126,6 +127,27 @@ class CategoryRepository implements CategoryInterface
 
         return response()->json(['message' => __('messages.user.categories.update.success')], 200);
 
+    }
+
+    public function remove_category_image($category)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'عدم دسترسی کاربر'], 403);
+        }
+
+        if ($category->image) {
+            $imagePath = public_path('images/categories/' . basename($category->image)); // مسیر فایل آواتار
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $category->update([
+            'image' => null,
+        ]);
     }
 
     public function destroy($category)
